@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Container, Field } from "./styles";
 
 const Board = () => {
+  const player = ["X", "O"];
+
   const [board, setBoard] = useState([
-    ["", "", ""],
+    ["X", "", ""],
     ["", "", ""],
     ["", "", ""]
   ]);
-  const player = ["X", "O"];
-
-  console.log(board);
-
   const [actualPlayer, setActualPlayer] = useState(player[0]);
+
+  const renderBoard = [];
+  let count = 0;
 
   const switchPlayer = () => {
     player[0] === actualPlayer
@@ -26,19 +27,18 @@ const Board = () => {
     switchPlayer();
   };
 
-  return (
-    <Container>
-      <Field onClick={handleClick}>{board[0][0]}</Field>
-      <Field onClick={handleClick}>{board[0][1]}</Field>
-      <Field onClick={handleClick}>{board[0][2]}</Field>
-      <Field onClick={handleClick}>{board[1][0]}</Field>
-      <Field onClick={handleClick}>{board[1][1]}</Field>
-      <Field onClick={handleClick}>{board[1][2]}</Field>
-      <Field onClick={handleClick}>{board[2][0]}</Field>
-      <Field onClick={handleClick}>{board[2][1]}</Field>
-      <Field onClick={handleClick}>{board[2][1]}</Field>
-    </Container>
-  );
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board.length; j++) {
+      count++;
+      renderBoard.push(
+        <Field key={count} onClick={handleClick}>
+          {board[i][j]}
+        </Field>
+      );
+    }
+  }
+
+  return <Container>{renderBoard}</Container>;
 };
 
 export default Board;
