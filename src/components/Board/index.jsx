@@ -1,30 +1,42 @@
 import React, { useState } from "react";
 
-import { Container } from "./styles";
+import { Container, Field } from "./styles";
 
 const Board = () => {
-  const [board, useBoard] = useState([
+  const [board, setBoard] = useState([
     ["", "", ""],
     ["", "", ""],
     ["", "", ""]
   ]);
-  const [player, usePlayer] = useState(["X", "O"]);
+  const player = ["X", "O"];
+
+  console.log(board);
+
+  const [actualPlayer, setActualPlayer] = useState(player[0]);
+
+  const switchPlayer = () => {
+    player[0] === actualPlayer
+      ? setActualPlayer(player[1])
+      : setActualPlayer(player[0]);
+  };
 
   const handleClick = e => {
-    console.log(board);
+    let currentField = e.currentTarget;
+    currentField.innerHTML = actualPlayer;
+    switchPlayer();
   };
 
   return (
     <Container>
-      <button onClick={handleClick}>{board[0][0]}</button>
-      <button>{board[0][1]}</button>
-      <button>{board[0][2]}</button>
-      <button>{board[1][0]}</button>
-      <button>{board[1][1]}</button>
-      <button>{board[1][2]}</button>
-      <button>{board[2][0]}</button>
-      <button>{board[2][1]}</button>
-      <button>{board[2][1]}</button>
+      <Field onClick={handleClick}>{board[0][0]}</Field>
+      <Field onClick={handleClick}>{board[0][1]}</Field>
+      <Field onClick={handleClick}>{board[0][2]}</Field>
+      <Field onClick={handleClick}>{board[1][0]}</Field>
+      <Field onClick={handleClick}>{board[1][1]}</Field>
+      <Field onClick={handleClick}>{board[1][2]}</Field>
+      <Field onClick={handleClick}>{board[2][0]}</Field>
+      <Field onClick={handleClick}>{board[2][1]}</Field>
+      <Field onClick={handleClick}>{board[2][1]}</Field>
     </Container>
   );
 };
