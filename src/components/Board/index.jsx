@@ -9,7 +9,6 @@ const Board = ({ winner, setWinner, newGame, setNewGame }) => {
 
   const [board, setBoard] = useState(initialBoardState);
   const [actualPlayer, setActualPlayer] = useState(player[0]);
-  const [lineWiner, setLineWinner] = useState();
 
   useEffect(() => {
     if (newGame) {
@@ -54,10 +53,18 @@ const Board = ({ winner, setWinner, newGame, setNewGame }) => {
         board[line[2]] === actualPlayer
       ) {
         setWinner(actualPlayer);
-        setLineWinner(board[line]);
       }
       return line;
     });
+    if (verifyTie()) setWinner("Tie");
+  };
+
+  const verifyTie = () => {
+    const found = board.find(element => {
+      return element === "";
+    });
+
+    if (found === undefined) return true;
   };
 
   return (
