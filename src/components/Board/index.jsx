@@ -9,6 +9,7 @@ const Board = ({ winner, setWinner, newGame, setNewGame }) => {
 
   const [board, setBoard] = useState(initialBoardState);
   const [actualPlayer, setActualPlayer] = useState(player[0]);
+  const [lineWiner, setLineWinner] = useState();
 
   useEffect(() => {
     if (newGame) {
@@ -53,6 +54,7 @@ const Board = ({ winner, setWinner, newGame, setNewGame }) => {
         board[line[2]] === actualPlayer
       ) {
         setWinner(actualPlayer);
+        setLineWinner(board[line]);
       }
       return line;
     });
@@ -62,7 +64,13 @@ const Board = ({ winner, setWinner, newGame, setNewGame }) => {
     <Container>
       {board.map((square, i) => {
         return (
-          <Square key={i} handleClick={handleClick} value={square} index={i} />
+          <Square
+            key={i}
+            index={i}
+            handleClick={handleClick}
+            value={square}
+            lineWinner={winner}
+          />
         );
       })}
     </Container>

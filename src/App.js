@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <Container>
-      <Header winner={winner} />
+      <Header />
       <Board
         winner={winner}
         setWinner={setWinner}
@@ -22,7 +22,7 @@ const App = () => {
         setNewGame={setNewGame}
       />
       {winner && !newGame && (
-        <NewGame onClick={handleNewGame}>Novo jogo!</NewGame>
+        <NewGame onClick={handleNewGame}>New Game!</NewGame>
       )}
     </Container>
   );

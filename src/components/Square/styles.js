@@ -10,4 +10,8 @@ export const Container = styled.div`
   width: 100px;
   height: 100px;
   font-size: 50px;
+  color: ${props =>
+    props.winner ? (props.winner === props.value ? "green" : "red") : "black"};
+
+  transition: 0.5s all linear;
 `;
