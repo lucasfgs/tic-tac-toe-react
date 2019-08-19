@@ -9,3 +9,5 @@ export const Container = styled.div`
   width: 100vw;
   background: #34495e;
 `;
+
+export const NewGame = styled.button``

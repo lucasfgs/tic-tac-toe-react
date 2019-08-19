@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Container } from "./styles";
 import Square from "../Square";
 
-const Board = ({ setWinner }) => {
+const Board = ({ winner, setWinner, newGame, setNewGame }) => {
   const player = ["X", "O"];
   const initialBoardState = ["", "", "", "", "", "", "", "", ""];
 
   const [board, setBoard] = useState(initialBoardState);
   const [actualPlayer, setActualPlayer] = useState(player[0]);
+
+  useEffect(() => {
+    if (newGame) {
+      setBoard(initialBoardState);
+      setNewGame(false);
+    }
+  }, [newGame, initialBoardState, setNewGame]);
 
   const switchPlayer = () => {
     player[0] === actualPlayer
@@ -18,10 +25,13 @@ const Board = ({ setWinner }) => {
 
   const handleClick = index => {
     let updatedBoard = board;
-    board[index] = actualPlayer;
-    setBoard(updatedBoard);
-    verifyWinner();
-    switchPlayer();
+    if (winner) return;
+    if (!updatedBoard[index]) {
+      updatedBoard[index] = actualPlayer;
+      setBoard(updatedBoard);
+      switchPlayer();
+      verifyWinner();
+    }
   };
 
   const verifyWinner = () => {
