@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Container, Field } from "./styles";
+import { Container } from "./styles";
+import Square from "../Square";
 
 const Board = () => {
   const player = ["X", "O"];
 
-  const [board, setBoard] = useState([
-    ["X", "", ""],
-    ["", "", ""],
-    ["", "", ""]
-  ]);
+  const [board, setBoard] = useState([["X"], [], [], [], [], [], [], [], []]);
   const [actualPlayer, setActualPlayer] = useState(player[0]);
-
-  const renderBoard = [];
-  let count = 0;
 
   const switchPlayer = () => {
     player[0] === actualPlayer
@@ -21,24 +15,26 @@ const Board = () => {
       : setActualPlayer(player[0]);
   };
 
-  const handleClick = e => {
-    let currentField = e.currentTarget;
-    currentField.innerHTML = actualPlayer;
+  const handleClick = (e, index) => {
+    console.log(e, index);
+    setBoard();
     switchPlayer();
   };
 
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board.length; j++) {
-      count++;
-      renderBoard.push(
-        <Field key={count} onClick={handleClick}>
-          {board[i][j]}
-        </Field>
-      );
-    }
-  }
-
-  return <Container>{renderBoard}</Container>;
+  return (
+    <Container>
+      {board.map((square, i) => {
+        return (
+          <Square
+            key={i}
+            handleClick={handleClick}
+            value={board[i]}
+            index={i}
+          />
+        );
+      })}
+    </Container>
+  );
 };
 
 export default Board;
