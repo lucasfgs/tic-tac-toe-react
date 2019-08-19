@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { Container } from "./styles";
 import Square from "../Square";
 
-const Board = () => {
+const Board = ({ setWinner }) => {
   const player = ["X", "O"];
+  const initialBoardState = ["", "", "", "", "", "", "", "", ""];
 
-  const [board, setBoard] = useState(["X", "", "", "", "", "", "", "", ""]);
+  const [board, setBoard] = useState(initialBoardState);
   const [actualPlayer, setActualPlayer] = useState(player[0]);
-  const [winner, setWinner] = useState("");
 
   const switchPlayer = () => {
     player[0] === actualPlayer
@@ -50,7 +50,6 @@ const Board = () => {
 
   return (
     <Container>
-      {winner && <span>Vencedor {winner}!</span>}
       {board.map((square, i) => {
         return (
           <Square key={i} handleClick={handleClick} value={square} index={i} />
